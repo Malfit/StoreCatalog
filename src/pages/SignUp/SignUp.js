@@ -18,7 +18,6 @@ const SignUp = () => {
     const [emailClass, setEmailClass] = useState('');
     const [passwordClass, setPasswordClass] = useState('');
 
-
     const checkFirstNameErr = () => {
         const reg = /[a-zA-Z0-9-_]{3,}/;
         return !reg.test(formData.current.firstName);
@@ -73,8 +72,7 @@ const SignUp = () => {
             setPasswordClass('correctInput');
         } else {
             setPasswordClass('');
-        }
-        
+        }       
     };
 
     const changeValue = (value, name) => {
@@ -92,7 +90,7 @@ const SignUp = () => {
         } else {
           console.log('Вы ввели неправильные данные');
         }
-    }
+    };
 
 
 

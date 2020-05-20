@@ -14,10 +14,12 @@ const routes = [
   {
     path: '/new-product',
     component: <NewProduct />,
+    exact: true,
   },
   {
     path: '/product-list',
     component: <ProductList />,
+    exact: true,
   },
   {
     path: '/sign-in',

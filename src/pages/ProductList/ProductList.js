@@ -13,25 +13,24 @@ import Typography from '@material-ui/core/Typography';
 import './ProductList.css';
 import PriceWithSaleAndDate from '../../components/PriceWithSale/PriceWithSaleAndDate';
 
+  const useStyles = makeStyles(() => ({
+    root: {
+      maxWidth: 4000,
+      minWidth: 200,
+      minHeight: 200,
+      maxHeight: 381,
+      margin: (40, 20),  
+    },
+    media: {
+      minWidth: 200,
+      minHeight: 200,
+      maxWidth: 4000,
+      maxHeight: 4000,    
+    }
+  }));
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 4000,
-    minWidth: 200,
-    minHeight: 200,
-    maxHeight: 381,
-    margin: (40, 20),  
-  },
-  media: {
-    minWidth: 200,
-    minHeight: 200,
-    maxWidth: 4000,
-    maxHeight: 4000,    
-  }
-}));
 
-
-const ProductList = () =>  {
+  const ProductList = () =>  {
   const dispatch = useDispatch();
   const classes = useStyles();
       
@@ -44,28 +43,27 @@ const ProductList = () =>  {
     <div className='obertka'>
     {products.map((item, index) => {
       return (
-        <div key={item+index} className="productList">
+        <div key={item+index} className='productList'>
           <Card className={classes.root}>
             <CardHeader
               action={
-                <IconButton aria-label="settings">
+                <IconButton aria-label='settings'>
                   <Dropdown
                       id = {item.id}
                     />
                 </IconButton>
               }
               title={item.title}
-              //subheader={item.description}
             />
             <CardMedia
               className={classes.media}
               image={item.photo}
             />
             <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant='body2' color='textSecondary' component='p'>
                 {item.description}
               </Typography>
-              <Typography variant="body2" color="primary" component="p">
+              <Typography variant='body2' color='primary' component='p'>
                 <PriceWithSaleAndDate 
                     price={item.price}
                     sale={item.sale}

@@ -26,21 +26,21 @@ import {
  };
 
   const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case ADD_PRODUCT_DATA_SUCCESS: {
-        return {
-          ...state, products: [...state.products, action.payload],
-      };
-    }
+    switch (action.type) {     
     case GET_PRODUCTS_SUCCESS: {
       return { ...state,
         products: action.payload
-      }
+      };
     } 
     case GET_ONE_PRODUCT_SUCCESS: {
       return { ...state,
         currentProduct: action.payload
-      }
+      };
+    }
+    case ADD_PRODUCT_DATA_SUCCESS: {
+      return {
+        ...state, products: [...state.products, action.payload],
+      };
     }
     case DELETE_PRODUCT_SUCCESS: {
       return {

@@ -42,25 +42,30 @@ const EditProduct = () =>  {
   const [saleClassEd, setSaleClass] = useState('');
   const [dateEndSaleClassEd, setDateEndSaleClass] = useState('');
 
-    const changeTitle = (e) => {
-      setTitle(e.target.value)
+  const changeTitle = (e) => {
+    setTitle(e.target.value)
     checkTitleValidation();
   };
-    const changePhoto = (e) => {
-      setPhoto(e.target.value)
+
+  const changePhoto = (e) => {
+    setPhoto(e.target.value)
     checkPhotoValidation();
   };
-    const changeDescription = (e) => {
-      setDescription(e.target.value)
+
+  const changeDescription = (e) => {
+    setDescription(e.target.value)
   };
-    const changePrice = (e) => {
-      setPrice(e.target.value)
+
+  const changePrice = (e) => {
+    setPrice(e.target.value)
     checkPriceValidation();
   };
-    const changeSale = (e) => {
-      setSale(e.target.value)
+
+  const changeSale = (e) => {
+    setSale(e.target.value)
     checkSaleValidation ();
   };
+
   const changeDateEndSale = (e) => {
     setDateEndSale(e.target.value)
     checkDateEndSaleValidation();
@@ -70,7 +75,7 @@ const EditProduct = () =>  {
     const reg = /^[\D]{3,7}$/;
     return !reg.test(title);
   };
-  //^[\D]
+
   const checkPhotoErr = () => {
     const reg = /^[a-zA-Z0-9]/;
     return !reg.test(photo);
@@ -108,12 +113,12 @@ const EditProduct = () =>  {
   };
 
   const checkDescriptionValidation = () => {
-  if (description.length > 200) {
-    setDescriptionClass('form__error');
-  } else {
-    setDescriptionClass('');
+    if (description.length > 200) {
+      setDescriptionClass('form__error');
+    } else {
+      setDescriptionClass('');
+    }
   }
-}
 
   const checkPriceValidation = () => {
     if (checkPriceErr()) {
@@ -139,7 +144,6 @@ const EditProduct = () =>  {
     }
   };
 
-  
   const approvedDispatch = () => {
     console.log(title, photo, description, price, sale, dateEndSale, id);
     if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr() && !checkDescriptionValidation()
@@ -205,7 +209,6 @@ const EditProduct = () =>  {
           className='add-btn' 
           variant='contained' 
           color='secondary' 
-          //onClick={approvedDispatch}
         > 
          Cancel
         </Button>
@@ -216,78 +219,3 @@ const EditProduct = () =>  {
 }
 
 export default EditProduct;
-
-
-
-  //const [isEditEnable, setIsEditEnable] = useState(false);
-
-  // const editingActivate = () => {
-  //   setIsEditEnable(!isEditEnable);
-  // }
-
-
-// {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.title}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.title} />
-//     </div>
-//   ) }   
-  
-//   {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.photo}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.photo} />
-//     </div>
-//   ) }
-
-//   {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.description}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.description} />
-//     </div>
-//   ) } 
-
-//   {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.price}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.price} />
-//     </div>
-//   ) } 
-
-//   {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.sale}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.sale} />
-//     </div>
-//   ) }
-
-//   {!isEditEnable && (
-//   <div onDoubleClick={editingActivate}>
-//     <p>{product.dateEndSale}</p>
-//   </div>)
-//   }     
-//   {isEditEnable &&  (
-//     <div  onBlur={editingBlurActivate} onFocus={() => true}>
-//       <input type="text" placeholder="enter some text" value={product.dateEndSale} />
-//     </div>
-//   ) }

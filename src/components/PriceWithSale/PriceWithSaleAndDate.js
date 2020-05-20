@@ -3,8 +3,6 @@ import './PriceWithSaleAndDate.css';
 import moment from 'moment';
 
 const PriceWithSaleAndDate = ({ price, sale, date }) => {
-
-    //const realPrice = price;
     const today = new Date ();
     let priceClass = 'price';
     let realDate = 'End of discount ';
@@ -32,9 +30,7 @@ const PriceWithSaleAndDate = ({ price, sale, date }) => {
                  {realDate}   
             </span>
         </div>
-    )
-    
-    
+    ) 
 }
 
 export default PriceWithSaleAndDate;

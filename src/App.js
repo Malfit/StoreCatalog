@@ -11,11 +11,11 @@ import routes from './routes';
 
 function App() {
   return(
-    <div className="app">
+    <div className='app'>
     <Router>
     <>
       <nav >
-        <ul className="navigation">
+        <ul className='navigation'>
           <li><Link to='/sign-in'>Sign In</Link></li>
           <li><Link to='/sign-up'>Sign Up</Link></li>
           <li><Link to='/product-list'>Product List</Link></li>           
