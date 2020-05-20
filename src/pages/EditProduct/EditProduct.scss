@@ -1,60 +1,67 @@
-.newProduct{
-  display: flex;
-  flex-direction: column;
-  padding: 50px;
-  background: #121212d3;
-  position: fixed; top: 50%; left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  border-radius: 10%;
+.editProduct{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    background: #121212d3;
+    position: fixed; top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 10%;
+}
+
+.editText{
+    color: gainsboro;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: large;
 }
 
 .form {
     padding-bottom: 20px;
-    &__inputTitle{
+    &__inputTitleEd{
       border: 1px solid #65656550;
       width: 340px;
       font-size: 18px;
       padding: 10px 5px;
       outline: none;
     }
-    &__inputPhoto {
+    &__inputPhotoEd {
       border: 1px solid #65656550;
       width: 340px;
       font-size: 18px;
       padding: 10px 5px;
       outline: none;
     }
-    &__inputDescription {
+    &__inputDescriptionEd {
         border: 1px solid #65656550;
         width: 340px;
         font-size: 18px;
         padding: 10px 5px;
         outline: none;
     }
-    &__inputPrice {
+    &__inputPriceEd {
         border: 1px solid #65656550;
         width: 340px;
         font-size: 18px;
         padding: 10px 5px;
         outline: none;
     }
-    &__inputSale {
+    &__inputSaleEd {
         border: 1px solid #65656550;
         width: 340px;
         font-size: 18px;
         padding: 10px 5px;
         outline: none;
     }
-    &__inputDateEndSale {
+    &__inputDateEndSaleEd {
         border: 1px solid #65656550;
         width: 340px;
         font-size: 18px;
         padding: 10px 5px;
         outline: none;
       }
-    &__inputDate {
+    &__inputDateEd {
       border: 5px solid #65656550;
         width: 352px;
         height: 43px;
@@ -66,24 +73,4 @@
     &__error {
       border-color:orangered;
     }
-}
-
-.add-btn{
-    width: 176px;
-    height: 40px;
-}
-
-// .add-btn2{
-//   width: 176px;
-//   height: 40px;
-// }
-
-
-
-.newText{
-  color: gainsboro;
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: large;
-  
 }

@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link  } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import { postNewProductData } from '../../redux/actions/root.actions';
-import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import './NewProduct.scss';
 
@@ -14,23 +15,38 @@ export const NewProduct = () => {
     title: '',
     photo: '',
     description: '',
-    price: 0,
-    sale: 0,
-    dateEndSale: ''
+    price: '',
+    sale: '',
+    dateEndSale: '',
+    //date: '',
     //new Date(),
   });
 
+  const [dateEnd, setDateEnd] = useState('');
+  console.log(formData.current.price);
+  console.log(formData.current.dateEndSale);
+
+
   const [titleClass, setTitleClass] = useState('');
   const [photoClass, setPhotoClass] = useState('');
+  const [descriptionClass, setDescriptionClass] = useState('');
   const [priceClass, setPriceClass] = useState('');
   const [saleClass, setSaleClass] = useState('');
-  const [dateEndSaleClass, setDateEndSaleClass] = useState('');
+  //const [dateEndSaleClass, setDateEndSaleClass] = useState('');
 
 
   const changeValue = (value, name) => {
     formData.current[name] = value;
+    //console.log(formData.current[name] = value);
     checkValidation();
   };
+
+  const changeDateValue = (e) => {
+    setDateEnd(e.target.value);
+    console.log(e.target.value);
+  }
+
+
 
   const checkTitleErr = () => {
     const reg = /^[\D]{4,7}$/;
@@ -38,27 +54,35 @@ export const NewProduct = () => {
   };
   //^[\D]
   const checkPhotoErr = () => {
-    const reg = /^[a-zA-z0-9]/;
+    const reg = /^[a-zA-z0-9\D]/;
     return !reg.test(formData.current.photo);
   };
 
+  // const checkDescription = () => {
+  //   const reg = /^[a-zA-z0-9]{,200}$/;
+  //   return !reg.test(formData.current.description);
+  // };
+
   const checkPriceErr = () => {
-    const reg = /^[a-zA-z0-9]/;
+    const reg = /^[\d.]{1,}$/;
     return !reg.test(formData.current.price);
   };
 
   const checkSaleErr = () => {
-    const reg = /^[a-zA-z0-9]/;
+    const reg = /^[\d]{2}$/;
     return !reg.test(formData.current.sale);
   };
 
-  const checkDateEndSaleErr = () => {
-    const reg = /^[a-zA-z0-9]/;
-    return !reg.test(formData.current.dateEndSale);
-  };
+  // const checkDateEndSaleErr = () => {
+  //   let check = false;
+  //   if (new Date().valueOf() > formData.current.dateEndSale){
+  //     check = true;
+  //   }
+  //   return check;
+  // };
 
   const checkValidation = () => {
-    const { title, photo, price, sale, dateEndSale } = formData.current;
+    const { title, photo, description, price, sale, dateEndSale } = formData.current;
     if (checkTitleErr() && title.length > 0) {
       setTitleClass('form__error');
     } else {
@@ -69,43 +93,53 @@ export const NewProduct = () => {
     } else {
       setPhotoClass('');
     }
+    if (description.length > 200) {
+      setDescriptionClass('form__error');
+    } else {
+      setDescriptionClass('');
+    }
     if (checkPriceErr() && price.length > 0) {
       setPriceClass('form__error');
     } else {
       setPriceClass('');
     }
-    if (checkSaleErr() && sale.length > 0) {
+    if ((checkSaleErr() || sale < 10 || sale > 90) && sale.length > 0) { 
       setSaleClass('form__error');
     } else {
       setSaleClass('');
     }
-    if (checkDateEndSaleErr() && dateEndSale.length > 0) {
-      setDateEndSaleClass('form__error');
-    } else {
-      setDateEndSaleClass('');
-    }
+    // if (dateEndSale.length > 0 && (sale || (dateEndSale < new Date().valueOf()))) {//|| sale || (dateEndSale < new Date().valueOf())) {
+    //   setDateEndSaleClass('form__error');
+    // } else {
+    //   setDateEndSaleClass('');
+    // }
   };
 
   
   const approvedDispatch = () => {
     const {
-      title, photo, description, price, sale, dateEndSale
+      title, photo, description, price, sale//, dateEndSale
     } = formData.current;
+    console.log(Date.parse(dateEnd));
+    console.log(price);
+    //console.log(dateEndSale);
     if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr()
-    && !checkSaleErr() && !checkDateEndSaleErr()) {
+    && !checkSaleErr() ) {
       dispatch(postNewProductData(
         title,
         photo,
         description,
         price,
         sale,
-        dateEndSale,
         //Date.parse(dateEndSale),
+        //Date.parse(dateEndSale),
+        Date.parse(dateEnd),
         history,
       ));
     }
   };
 
+  //moment(formData.current.date).format('YYYY-MM-DD')
 
 
   return (
@@ -113,34 +147,46 @@ export const NewProduct = () => {
       <div className='newText'>Add configuration for your new product</div>   
       <input
         className={`form__inputTitle ${titleClass}`}
-        placeholder='Title (20-60 characters)'
+        placeholder='Mark (4-7 characters)'
         onInput={e => changeValue(e.target.value, 'title')} 
       />
       <input
         className={`form__inputPhoto ${photoClass}`}
-        placeholder='Link Photo' 
+        placeholder='URL Photo' 
         onInput={e => changeValue(e.target.value, 'photo')} 
       />
       <input
-        className='form__inputDescription'
-        placeholder='Description (max 200 characters)' 
+        className={`form__inputDescription ${descriptionClass}`}
+        placeholder='Model (max 200 characters)' 
         onInput={e => changeValue(e.target.value, 'description')} 
       />
       <input
-        className={`form__inputPrice ${priceClass}`} 
+        className={`form__inputPrice ${priceClass}`}
         placeholder='Price' 
         onInput={e => changeValue(e.target.value, 'price')} 
       />
+
       <input
-        className={`form__inputSale ${saleClass}`} 
-        placeholder='Sale %' 
-        onInput={e => changeValue(e.target.value, 'sale')} 
-      />
-      <input
+         className={`form__inputSale ${saleClass}`} 
+         placeholder='Discount 10-90%' 
+         onInput={e => changeValue(e.target.value, 'sale')} 
+      /> 
+      {/* <input
         className={`form__inputDateEndSale ${dateEndSaleClass}`} 
         placeholder='Date (ending sale)' 
         onInput={e => changeValue(e.target.value, 'dateEndSale')} 
-      />
+      /> */}
+      <TextField
+              id="date"
+              label="Date (ending discount)"
+              type="date"
+              className='form__inputDate'
+              value={dateEnd}
+              onChange={changeDateValue}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
       <span>
       <Button 
         className='add-btn' 
@@ -155,7 +201,6 @@ export const NewProduct = () => {
           className='add-btn' 
           variant='contained' 
           color='secondary' 
-          //onClick={approvedDispatch}
         > 
          Cancel
         </Button>

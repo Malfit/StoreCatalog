@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import './EditProduct.css';
+import './EditProduct.scss';
 import { getCurrentProduct,
   editProduct } from '../../redux/actions/root.actions';
 import { Link } from 'react-router-dom';
@@ -17,8 +17,6 @@ const EditProduct = () =>  {
 }, [dispatch, id]);
 
   const product = useSelector(state => state.currentProduct); 
-  //console.log(id);
-  //console.log(product);
 
   const [title, setTitle] = useState(product.title);
   const [photo, setPhoto] = useState(product.photo);
@@ -34,13 +32,15 @@ const EditProduct = () =>  {
     setPrice(product.price);
     setSale(product.sale);
     setDateEndSale(product.dateEndSale);
-},[product.title, product.photo, product.description, product.price, product.sale, product.dateEndSale]);
+},[product.title, product.photo, product.description,
+  product.price, product.sale, product.dateEndSale]);
   
-  const [titleClass, setTitleClass] = useState('');
-  const [photoClass, setPhotoClass] = useState('');
-  const [priceClass, setPriceClass] = useState('');
-  const [saleClass, setSaleClass] = useState('');
-  const [dateEndSaleClass, setDateEndSaleClass] = useState('');
+  const [titleClassEd, setTitleClass] = useState('');
+  const [photoClassEd, setPhotoClass] = useState('');
+  const [descriptionClassEd, setDescriptionClass] = useState('');
+  const [priceClassEd, setPriceClass] = useState('');
+  const [saleClassEd, setSaleClass] = useState('');
+  const [dateEndSaleClassEd, setDateEndSaleClass] = useState('');
 
     const changeTitle = (e) => {
       setTitle(e.target.value)
@@ -82,7 +82,7 @@ const EditProduct = () =>  {
   };
 
   const checkSaleErr = () => {
-    const reg = /^[0-9]{,1}$/;
+    const reg = /^[0-9]/;
     return !reg.test(sale);
   };
 
@@ -107,6 +107,14 @@ const EditProduct = () =>  {
     }
   };
 
+  const checkDescriptionValidation = () => {
+  if (description.length > 200) {
+    setDescriptionClass('form__error');
+  } else {
+    setDescriptionClass('');
+  }
+}
+
   const checkPriceValidation = () => {
     if (checkPriceErr()) {
       setPriceClass('form__error');
@@ -116,7 +124,7 @@ const EditProduct = () =>  {
   };
 
   const checkSaleValidation = () => {
-    if (checkSaleErr()) {
+    if ((checkSaleErr() || sale < 10 || sale > 90) && sale.length > 0) { 
       setSaleClass('form__error');
     } else {
       setSaleClass('');
@@ -134,7 +142,7 @@ const EditProduct = () =>  {
   
   const approvedDispatch = () => {
     console.log(title, photo, description, price, sale, dateEndSale, id);
-    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr()
+    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr() && !checkDescriptionValidation()
     && !checkSaleErr() && !checkDateEndSaleErr()) {
       dispatch(editProduct(
         id,
@@ -155,37 +163,37 @@ const EditProduct = () =>  {
       <form className='editProduct'>
         <div className='editText'>Edit configuration for your product</div>
         <input
-        className={`form__inputTitle ${titleClass}`}
+        className={`form__inputTitle ${titleClassEd}`}
         placeholder='Mark (4-7 characters)'
         onInput={changeTitle} 
         value={title}
       />
       <input
-        className={`form__inputPhoto ${photoClass}`}
+        className={`form__inputPhoto ${photoClassEd}`}
         placeholder='URL Photo' 
         onInput={changePhoto} 
         value={photo}
       />
       <input
-        className='form__inputDescription'
+        className={`form__inputDescription ${descriptionClassEd}`}
         placeholder='Model (max 200 characters)' 
         onInput={changeDescription} 
         value={description}
       />
       <input
-        className={`form__inputPrice ${priceClass}`} 
+        className={`form__inputPrice ${priceClassEd}`} 
         placeholder='Price' 
         onInput={changePrice} 
         value={price}
       />
       <input
-        className={`form__inputSale ${saleClass}`} 
+        className={`form__inputSale ${saleClassEd}`} 
         placeholder='Sale %' 
         onInput={changeSale} 
         value={sale}
       />
       <input
-        className={`form__inputDateEndSale ${dateEndSaleClass}`} 
+        className={`form__inputDateEndSale ${dateEndSaleClassEd}`} 
         placeholder='Date (ending sale)' 
         onInput={changeDateEndSale} 
         value={dateEndSale}
