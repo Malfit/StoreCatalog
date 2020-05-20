@@ -1,0 +1,80 @@
+.newProduct{
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  background: #121212d3;
+  position: fixed; top: 50%; left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 10%;
+}
+
+.form {
+    padding-bottom: 20px;
+    &__inputTitle{
+      border: 1px solid #65656550;
+      width: 340px;
+      font-size: 18px;
+      padding: 10px 5px;
+      outline: none;
+    }
+    &__inputPhoto {
+      border: 1px solid #65656550;
+      width: 340px;
+      font-size: 18px;
+      padding: 10px 5px;
+      outline: none;
+    }
+    &__inputDescription {
+        border: 1px solid #65656550;
+        width: 340px;
+        font-size: 18px;
+        padding: 10px 5px;
+        outline: none;
+    }
+    &__inputPrice {
+        border: 1px solid #65656550;
+        width: 340px;
+        font-size: 18px;
+        padding: 10px 5px;
+        outline: none;
+    }
+    &__inputSale {
+        border: 1px solid #65656550;
+        width: 340px;
+        font-size: 18px;
+        padding: 10px 5px;
+        outline: none;
+    }
+    &__inputDateEndSale {
+        border: 1px solid #65656550;
+        width: 340px;
+        font-size: 18px;
+        padding: 10px 5px;
+        outline: none;
+      }
+    &__error{
+      border-color:orangered;
+    }
+}
+
+.add-btn{
+    width: 176px;
+    height: 40px;
+}
+
+// .add-btn2{
+//   width: 176px;
+//   height: 40px;
+// }
+
+
+
+.newText{
+  color: gainsboro;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: large;
+  
+}

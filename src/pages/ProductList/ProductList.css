@@ -1,0 +1,8 @@
+
+.obertka{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: grey;
+    justify-content: space-around;
+}

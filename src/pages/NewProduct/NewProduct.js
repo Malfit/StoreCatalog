@@ -1,0 +1,168 @@
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { postNewProductData } from '../../redux/actions/root.actions';
+import { Link } from 'react-router-dom';
+
+import './NewProduct.scss';
+
+export const NewProduct = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const formData = useRef({
+    title: '',
+    photo: '',
+    description: '',
+    price: 0,
+    sale: 0,
+    dateEndSale: ''
+    //new Date(),
+  });
+
+  const [titleClass, setTitleClass] = useState('');
+  const [photoClass, setPhotoClass] = useState('');
+  const [priceClass, setPriceClass] = useState('');
+  const [saleClass, setSaleClass] = useState('');
+  const [dateEndSaleClass, setDateEndSaleClass] = useState('');
+
+
+  const changeValue = (value, name) => {
+    formData.current[name] = value;
+    checkValidation();
+  };
+
+  const checkTitleErr = () => {
+    const reg = /^[\D]{4,7}$/;
+    return !reg.test(formData.current.title);
+  };
+  //^[\D]
+  const checkPhotoErr = () => {
+    const reg = /^[a-zA-z0-9]/;
+    return !reg.test(formData.current.photo);
+  };
+
+  const checkPriceErr = () => {
+    const reg = /^[a-zA-z0-9]/;
+    return !reg.test(formData.current.price);
+  };
+
+  const checkSaleErr = () => {
+    const reg = /^[a-zA-z0-9]/;
+    return !reg.test(formData.current.sale);
+  };
+
+  const checkDateEndSaleErr = () => {
+    const reg = /^[a-zA-z0-9]/;
+    return !reg.test(formData.current.dateEndSale);
+  };
+
+  const checkValidation = () => {
+    const { title, photo, price, sale, dateEndSale } = formData.current;
+    if (checkTitleErr() && title.length > 0) {
+      setTitleClass('form__error');
+    } else {
+      setTitleClass('');
+    }
+    if (checkPhotoErr() && photo.length > 0) {
+      setPhotoClass('form__error');
+    } else {
+      setPhotoClass('');
+    }
+    if (checkPriceErr() && price.length > 0) {
+      setPriceClass('form__error');
+    } else {
+      setPriceClass('');
+    }
+    if (checkSaleErr() && sale.length > 0) {
+      setSaleClass('form__error');
+    } else {
+      setSaleClass('');
+    }
+    if (checkDateEndSaleErr() && dateEndSale.length > 0) {
+      setDateEndSaleClass('form__error');
+    } else {
+      setDateEndSaleClass('');
+    }
+  };
+
+  
+  const approvedDispatch = () => {
+    const {
+      title, photo, description, price, sale, dateEndSale
+    } = formData.current;
+    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr()
+    && !checkSaleErr() && !checkDateEndSaleErr()) {
+      dispatch(postNewProductData(
+        title,
+        photo,
+        description,
+        price,
+        sale,
+        dateEndSale,
+        //Date.parse(dateEndSale),
+        history,
+      ));
+    }
+  };
+
+
+
+  return (
+    <form className="newProduct"> 
+      <div className='newText'>Add configuration for your new product</div>   
+      <input
+        className={`form__inputTitle ${titleClass}`}
+        placeholder='Title (20-60 characters)'
+        onInput={e => changeValue(e.target.value, 'title')} 
+      />
+      <input
+        className={`form__inputPhoto ${photoClass}`}
+        placeholder='Link Photo' 
+        onInput={e => changeValue(e.target.value, 'photo')} 
+      />
+      <input
+        className='form__inputDescription'
+        placeholder='Description (max 200 characters)' 
+        onInput={e => changeValue(e.target.value, 'description')} 
+      />
+      <input
+        className={`form__inputPrice ${priceClass}`} 
+        placeholder='Price' 
+        onInput={e => changeValue(e.target.value, 'price')} 
+      />
+      <input
+        className={`form__inputSale ${saleClass}`} 
+        placeholder='Sale %' 
+        onInput={e => changeValue(e.target.value, 'sale')} 
+      />
+      <input
+        className={`form__inputDateEndSale ${dateEndSaleClass}`} 
+        placeholder='Date (ending sale)' 
+        onInput={e => changeValue(e.target.value, 'dateEndSale')} 
+      />
+      <span>
+      <Button 
+        className='add-btn' 
+        variant='contained' 
+        color='primary' 
+        onClick={approvedDispatch}
+      > 
+        Create 
+      </Button>
+      <Link to='/product-list'>
+        <Button 
+          className='add-btn' 
+          variant='contained' 
+          color='secondary' 
+          //onClick={approvedDispatch}
+        > 
+         Cancel
+        </Button>
+      </Link>
+      </span>
+    </form>
+  )
+}
+
+export default NewProduct;

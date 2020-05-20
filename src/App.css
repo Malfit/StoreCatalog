@@ -1,3 +1,26 @@
+.navigation{
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  background-color: #121212d3;
+  color: white;
+  width: 100vw;
+  justify-content: space-evenly;
+  margin:0;
+  padding: 0;
+  height: 6vh;
+  font-size: large;
+  align-items: center;
+}
+.navigation>li>a{
+  text-decoration: none;
+  color:white;
+}
+
+.navigation>li>a:hover{
+  color:grey;
+}
+
 .App {
   text-align: center;
 }

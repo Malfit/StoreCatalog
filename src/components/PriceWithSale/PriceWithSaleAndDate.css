@@ -1,0 +1,12 @@
+.priceSaleDate{
+    color: black;
+}
+
+.priceSale{
+    color: grey;
+    text-decoration: line-through; 
+}
+
+.price{
+    font-size: large;
+}

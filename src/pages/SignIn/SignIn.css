@@ -1,0 +1,146 @@
+.form1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 94vh;
+    width: 100vw;
+}
+
+.signIn{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: white;
+    width: 400px;
+    height: 450px;
+    justify-content: center;
+    align-items: center;
+}
+
+.signInBtn{
+    padding: 0;
+    border: none;
+    font: inherit;
+
+    background-color: #90caf9;
+    width: 290px;
+    height: 25px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border: #90caf9;
+    cursor: pointer;
+    
+}
+
+input:focus{
+    outline: none;
+}
+
+.inputEmail{
+    width: 290px;
+    background-color: #121212;
+    color: white;
+    height: 40px;
+    border: solid 0.5px #353535;
+    border-radius: 1%;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+.inputPassword{
+    width: 290px;
+    background-color: #121212;
+    color: white;
+    height: 40px;
+    border: solid 0.5px #353535;
+    border-radius: 1%;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+.errorInput{
+    border: solid red 0.5px;
+}
+
+.correctInput{
+    border: solid rgb(35, 245, 35) 0.5px;
+}
+
+.linkAnotherPage{
+    text-decoration: none;
+    color: #6a94b4;
+    margin-bottom: 50px;
+    font-size: 12px;
+}
+
+.linkAnotherPage>a{
+    text-decoration: none;
+    color: #6a94b4;
+    margin-right: 15px;
+}
+
+.copyright{
+    font-size: 12px;
+    color: #9b9b9b;
+}
+
+.container {    
+    display: block;
+    position: relative; 
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-right: auto;
+    margin-left: 55px;
+}
+
+.container>input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* .checkmark:hover{
+    border: solid white 1px;
+    transition: ease-in-out;
+} */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 5px;
+    top: 0px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 14px;
+    width: 14px;
+    background-color: #121212;
+    border: solid 1px #353535;   
+}
