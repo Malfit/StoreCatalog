@@ -89,8 +89,7 @@ export const NewProduct = () => {
       title, photo, description, price, sale
     } = formData.current;
 
-    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr()
-    && !checkSaleErr() ) {
+    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr()) {
       dispatch(postNewProductData(
         title,
         photo,

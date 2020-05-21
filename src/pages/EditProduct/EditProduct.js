@@ -39,7 +39,8 @@ const EditProduct = () =>  {
     setPrice(product.price)
     setSale(product.sale)
     setDateEndSale(product.dateEndSale)
-  },[product]);
+  },[product.title, product.photo, product.description,
+    product.price, product.sale, product.dateEndSale]);
 
 
   const changeTitle = (e) => {    
@@ -132,8 +133,7 @@ const EditProduct = () =>  {
   };
   
   const approvedDispatch = () => {
-    if (!checkTitleErrEd(title) && !checkPhotoErrEd(photo) && !checkPriceErrEd(price) && !checkDescriptionValidationEd()
-    && !checkSaleErrEd(sale)) {
+    if (!checkTitleErrEd(title) && !checkPhotoErrEd(photo) && !checkPriceErrEd(price) && !checkDescriptionValidationEd()) {
       dispatch(editProduct(
         id,
         title,
