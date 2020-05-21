@@ -1,9 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
+import app from '../../base';
 import './SignUp.css';
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
     
+    const handleSignUp = useCallback(async event => {
+        event.preventDefault();
+        const { email, password } = event.target.elements;
+        try {
+          await app
+            .auth()
+            .createUserWithEmailAndPassword(email.value, password.value);
+          history.push("/sign-in");
+        } catch (error) {
+          alert(error);
+        }
+      }, [history]);
+
     const [checkBox, turnOnOffCheckBox] = useState(false);
 
     const formData = useRef({
@@ -33,7 +48,7 @@ const SignUp = () => {
     };
 
     const checkPasswordErr = () => {
-        const reg = /^(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        const reg = /^[0-9a-zA-Z]{8,}$/;
         return !reg.test(formData.current.password);
     };
 
@@ -81,23 +96,16 @@ const SignUp = () => {
     };
 
     const onButtonClick = () => {
-         const {
-            firstName, lastName, email, password
-         } = formData.current;
         if (!checkFirstNameErr() && !checkLastNameErr() && !checkEmailErr() && !checkPasswordErr()) {
             console.log('all is goood');
-            console.log(firstName, lastName, email, password);
         } else {
           console.log('Вы ввели неправильные данные');
         }
     };
 
-
-
     return (
         <div className="form2">   
-
-            <form className="signUp">
+            <form className="signUp" onSubmit={handleSignUp}>
                 <div className="ico"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg></div>
                 <label>
                 Sign up
@@ -132,7 +140,6 @@ const SignUp = () => {
                     placeholder="Password *" 
                     onInput={e => changeValue(e.target.value, 'password')}
                 />
-
                 <label className="container1">
                     <input 
                         type="checkbox" 
@@ -142,13 +149,9 @@ const SignUp = () => {
                     promotions and update via email.
                     <span className="checkmark1"></span>
                 </label>   
-
-                <Link to='/sign-in'>
-                    <button className='signUpBtn' type="button" onClick={onButtonClick}>
-                        SIGN UP
-                    </button>
-                </Link>
-
+                <button className='signUpBtn' type="submit" onClick={onButtonClick}>
+                    SIGN UP
+                </button>
                 <div className="linkAnotherPage2">
                     <Link to="/sign-in">Already have an account? Sign in</Link>
                 </div>
@@ -160,4 +163,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default withRouter(SignUp);

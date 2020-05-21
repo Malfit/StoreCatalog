@@ -4,7 +4,6 @@ import { useHistory, Link  } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { postNewProductData } from '../../redux/actions/root.actions';
-
 import './NewProduct.scss';
 
 export const NewProduct = () => {
@@ -34,11 +33,10 @@ export const NewProduct = () => {
 
   const changeDateValue = (e) => {
     setDateEnd(e.target.value);
-    console.log(e.target.value);
   }
 
   const checkTitleErr = () => {
-    const reg = /^[\D]{4,7}$/;
+    const reg = /^[\D]{2,7}$/;
     return !reg.test(formData.current.title);
   };
 
@@ -74,7 +72,7 @@ export const NewProduct = () => {
     } else {
       setDescriptionClass('');
     }
-    if (checkPriceErr() && price.length > 0) {
+    if ((checkPriceErr() && price.length > 0) || price > 99999999.99) {
       setPriceClass('form__error');
     } else {
       setPriceClass('');
@@ -84,14 +82,8 @@ export const NewProduct = () => {
     } else {
       setSaleClass('');
     }
-    // if (dateEndSale.length > 0 && (sale || (dateEndSale < new Date().valueOf()))) {//|| sale || (dateEndSale < new Date().valueOf())) {
-    //   setDateEndSaleClass('form__error');
-    // } else {
-    //   setDateEndSaleClass('');
-    // }
   };
 
-  
   const approvedDispatch = () => {
     const {
       title, photo, description, price, sale
@@ -110,13 +102,12 @@ export const NewProduct = () => {
       ));
     }
   };
-
   return (
     <form className='newProduct'> 
       <div className='newText'>Add configuration for your new product</div>   
       <input
         className={`form__inputTitle ${titleClass}`}
-        placeholder='Mark (4-7 characters)'
+        placeholder='Mark (2-7 characters)'
         onInput={e => changeValue(e.target.value, 'title')} 
       />
       <input

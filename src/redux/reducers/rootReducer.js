@@ -9,20 +9,12 @@ import {
       title: '',
       photo: '', 
       description: '', 
-      price: 0, 
-      sale: 0, 
+      price: '', 
+      sale: '', 
       dateEndSale: '',
     },
   ],
-  currentProduct : {
-    title: '',
-    photo: '', 
-    description: '', 
-    price: '', 
-    sale: '', 
-    dateEndSale: '',
-    id: '',
-  }
+  currentProduct : {}
  };
 
   const rootReducer = (state = initialState, action) => {

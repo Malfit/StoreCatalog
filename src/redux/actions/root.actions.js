@@ -88,7 +88,6 @@ export const postNewProductData = (
 
   export const deleteProduct = id => (dispatch) => {
     api.deleteProduct(id).then(() => {
-      console.log('delete hello');
       dispatch({
         type: DELETE_PRODUCT_SUCCESS,
         payload: id,  

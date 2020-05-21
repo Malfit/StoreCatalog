@@ -24,5 +24,4 @@ const api = {
   deleteProduct: id => BASE_CONNECTION.delete(`products/${id}.json`),
 };
 
-
 export default api;

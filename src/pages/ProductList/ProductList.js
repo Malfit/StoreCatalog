@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'; 
 import { useSelector, useDispatch } from 'react-redux';
-import './ProductList.css';
 import { getProductsData } from '../../redux/actions/root.actions';
 import Dropdown from '../../components/Dropdown';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import './ProductList.css';
 import PriceWithSaleAndDate from '../../components/PriceWithSale/PriceWithSaleAndDate';
+import './ProductList.css';
 
   const useStyles = makeStyles(() => ({
     root: {
@@ -28,7 +27,6 @@ import PriceWithSaleAndDate from '../../components/PriceWithSale/PriceWithSaleAn
       maxHeight: 4000,    
     }
   }));
-
 
   const ProductList = () =>  {
   const dispatch = useDispatch();

@@ -1,161 +1,147 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import './EditProduct.scss';
 import { getCurrentProduct,
   editProduct } from '../../redux/actions/root.actions';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
+import './EditProduct.scss';
 
 const EditProduct = () =>  {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getCurrentProduct(id));
-}, [dispatch, id]);
-
   const product = useSelector(state => state.currentProduct); 
+    useEffect(() => {
+    dispatch(getCurrentProduct(id));
+}, [dispatch, id]);  
 
-  const [title, setTitle] = useState(product.title);
-  const [photo, setPhoto] = useState(product.photo);
-  const [description, setDescription] = useState(product.description);
-  const [price, setPrice] = useState(product.price);
-  const [sale, setSale] = useState(product.sale);
-  const [dateEndSale, setDateEndSale] = useState(product.dateEndSale);
+  const [title, setTitle] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [sale, setSale] = useState('');
+  const [dateEndSale, setDateEndSale] = useState('');
   
+  const [titleClassEd, setTitleClassEd] = useState('');
+  const [photoClassEd, setPhotoClassEd] = useState('');
+  const [descriptionClassEd, setDescriptionClassEd] = useState('');
+  const [priceClassEd, setPriceClassEd] = useState('');
+  const [saleClassEd, setSaleClassEd] = useState('');
+
   useEffect(() => {
     setTitle(product.title);
     setPhoto(product.photo);
     setDescription(product.description);
-    setPrice(product.price);
-    setSale(product.sale);
-    setDateEndSale(product.dateEndSale);
-},[product.title, product.photo, product.description,
-  product.price, product.sale, product.dateEndSale]);
-  
-  const [titleClassEd, setTitleClass] = useState('');
-  const [photoClassEd, setPhotoClass] = useState('');
-  const [descriptionClassEd, setDescriptionClass] = useState('');
-  const [priceClassEd, setPriceClass] = useState('');
-  const [saleClassEd, setSaleClass] = useState('');
-  const [dateEndSaleClassEd, setDateEndSaleClass] = useState('');
+    setPrice(product.price)
+    setSale(product.sale)
+    setDateEndSale(product.dateEndSale)
+  },[product]);
 
-  const changeTitle = (e) => {
-    setTitle(e.target.value)
-    checkTitleValidation();
+
+  const changeTitle = (e) => {    
+    checkTitleValidationEd(e.target.value);
+    setTitle(e.target.value);
   };
 
   const changePhoto = (e) => {
     setPhoto(e.target.value)
-    checkPhotoValidation();
+    checkPhotoValidationEd();
   };
 
   const changeDescription = (e) => {
-    setDescription(e.target.value)
+    setDescription(e.target.value);
+    checkDescriptionValidationEd(e.target.value);
   };
 
   const changePrice = (e) => {
     setPrice(e.target.value)
-    checkPriceValidation();
+    checkPriceValidationEd(e.target.value);
   };
 
   const changeSale = (e) => {
     setSale(e.target.value)
-    checkSaleValidation ();
+    checkSaleValidationEd (e.target.value);
   };
 
   const changeDateEndSale = (e) => {
     setDateEndSale(e.target.value)
-    checkDateEndSaleValidation();
   };
 
-  const checkTitleErr = () => {
-    const reg = /^[\D]{3,7}$/;
-    return !reg.test(title);
+  const checkTitleErrEd = (value) => {
+    const reg = /^[\D]{2,7}$/;
+    return !reg.test(value);
   };
 
-  const checkPhotoErr = () => {
-    const reg = /^[a-zA-Z0-9]/;
-    return !reg.test(photo);
+  const checkPhotoErrEd = (value) => {
+    const reg = /^[a-zA-z0-9\D]/;
+    return !reg.test(value);
   };
 
-  const checkPriceErr = () => {
-    const reg = /^[0-9.]/;
-    return !reg.test(price);
+  const checkPriceErrEd = (value) => {
+    const reg = /^[\d.]{1,}$/;
+    return !reg.test(value);
   };
 
-  const checkSaleErr = () => {
-    const reg = /^[0-9]/;
-    return !reg.test(sale);
+  const checkSaleErrEd = (value) => {
+    const reg = /^[\d]{2}$/;
+    return !reg.test(value);
   };
 
-  const checkDateEndSaleErr = () => {
-    const reg = /^[a-zA-Z0-9]/;
-    return !reg.test(dateEndSale);
-  };
-
-  const checkTitleValidation = () => {
-    if (checkTitleErr()) {
-      setTitleClass('form__error');
+  const checkTitleValidationEd = (value) => {
+    if (checkTitleErrEd(value)) {
+      setTitleClassEd('form__error');
     } else {
-      setTitleClass('');
+      setTitleClassEd('');
     }
   };
 
-  const checkPhotoValidation = () => {
-    if (checkPhotoErr()) {
-      setPhotoClass('form__error');
+  const checkPhotoValidationEd = (value) => {
+    if (checkPhotoErrEd(value) && photo.length > 0) {
+      setPhotoClassEd('form__error');
     } else {
-      setPhotoClass('');
+      setPhotoClassEd('');
     }
   };
 
-  const checkDescriptionValidation = () => {
+  const checkDescriptionValidationEd = () => {
     if (description.length > 200) {
-      setDescriptionClass('form__error');
+      setDescriptionClassEd('form__error');
     } else {
-      setDescriptionClass('');
-    }
-  }
-
-  const checkPriceValidation = () => {
-    if (checkPriceErr()) {
-      setPriceClass('form__error');
-    } else {
-      setPriceClass('');
+      setDescriptionClassEd('');
     }
   };
 
-  const checkSaleValidation = () => {
-    if ((checkSaleErr() || sale < 10 || sale > 90) && sale.length > 0) { 
-      setSaleClass('form__error');
+  const checkPriceValidationEd = (value) => {
+    if ((checkPriceErrEd(value) && price.length > 0) || price > 99999999.99) {
+      setPriceClassEd('form__error');
     } else {
-      setSaleClass('');
+      setPriceClassEd('');
+    }
+  };
+
+  const checkSaleValidationEd = (value) => {
+    if ((checkSaleErrEd(value) || value < 10 || value > 90) && value.length > 0) { 
+      setSaleClassEd('form__error');
+    } else {
+      setSaleClassEd('');
     }
   };
   
-  const checkDateEndSaleValidation = () => {
-    if (checkDateEndSaleErr()) {
-      setDateEndSaleClass('form__error');
-    } else {
-      setDateEndSaleClass('');
-    }
-  };
-
   const approvedDispatch = () => {
-    console.log(title, photo, description, price, sale, dateEndSale, id);
-    if (!checkTitleErr() && !checkPhotoErr() && !checkPriceErr() && !checkDescriptionValidation()
-    && !checkSaleErr() && !checkDateEndSaleErr()) {
+    if (!checkTitleErrEd(title) && !checkPhotoErrEd(photo) && !checkPriceErrEd(price) && !checkDescriptionValidationEd()
+    && !checkSaleErrEd(sale)) {
       dispatch(editProduct(
         id,
         title,
         photo,
         description,
-        price,
-        sale,
-        dateEndSale,
+        Number(price),
+        Number(sale),
+        Date.parse(dateEndSale),
         history
       ));
     } else {
@@ -163,59 +149,64 @@ const EditProduct = () =>  {
     }
   };
 
-    return ( 
+    return (
       <form className='editProduct'>
-        <div className='editText'>Edit configuration for your product</div>
-        <input
-        className={`form__inputTitle ${titleClassEd}`}
-        placeholder='Mark (4-7 characters)'
-        onInput={changeTitle} 
-        value={title}
-      />
+      <div className='editText'>Edit configuration for your product</div>
       <input
-        className={`form__inputPhoto ${photoClassEd}`}
-        placeholder='URL Photo' 
-        onInput={changePhoto} 
-        value={photo}
-      />
-      <input
-        className={`form__inputDescription ${descriptionClassEd}`}
-        placeholder='Model (max 200 characters)' 
-        onInput={changeDescription} 
-        value={description}
-      />
-      <input
-        className={`form__inputPrice ${priceClassEd}`} 
-        placeholder='Price' 
-        onInput={changePrice} 
-        value={price}
-      />
-      <input
-        className={`form__inputSale ${saleClassEd}`} 
-        placeholder='Sale %' 
-        onInput={changeSale} 
-        value={sale}
-      />
-      <input
-        className={`form__inputDateEndSale ${dateEndSaleClassEd}`} 
-        placeholder='Date (ending sale)' 
-        onInput={changeDateEndSale} 
-        value={dateEndSale}
-      />
-      <span>
-      <Button className='add-btn' variant="contained" color="primary" onClick={approvedDispatch}> Save changes</Button>
-      <Link to='/product-list'>
-        <Button 
-          className='add-btn' 
-          variant='contained' 
-          color='secondary' 
-        > 
-         Cancel
-        </Button>
-      </Link>
-      </span>
-    </form>
-    )
+      className={`form__inputTitleEd ${titleClassEd}`}
+      placeholder='Mark (2-7 characters)'
+      onChange={changeTitle} 
+      value={title}
+    />
+    <input
+      className={`form__inputPhotoEd ${photoClassEd}`}
+      placeholder='URL Photo' 
+      onChange={changePhoto} 
+      value={photo}
+    />
+    <input
+      className={`form__inputDescriptionEd ${descriptionClassEd}`}
+      placeholder='Model (max 200 characters)' 
+      onChange={changeDescription} 
+      value={description}
+    />
+    <input
+      className={`form__inputPriceEd ${priceClassEd}`} 
+      placeholder='Price' 
+      onChange={changePrice} 
+      value={price}
+    />
+    <input
+      className={`form__inputSaleEd ${saleClassEd}`} 
+      placeholder='Sale %' 
+      onChange={changeSale} 
+      value={sale}
+    />
+    <TextField
+            id='date'
+            label='Date (ending discount)'
+            type='date'
+            className='form__inputDateEd'
+            value={moment(dateEndSale).format('YYYY-MM-DD')}
+            onChange={changeDateEndSale}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+    <span>
+    <Button className='add-btn' variant="contained" color="primary" onClick={approvedDispatch}> Save changes</Button>
+    <Link to='/product-list'>
+      <Button 
+        className='add-btn' 
+        variant='contained' 
+        color='secondary' 
+      > 
+       Cancel
+      </Button>
+    </Link>
+    </span>
+  </form>
+     )
 }
 
 export default EditProduct;
